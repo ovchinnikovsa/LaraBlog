@@ -1,0 +1,1 @@
+$a = new App\Models\Article(); $a->name = 'My first article'; $a->body = 'Content'; $a->save()

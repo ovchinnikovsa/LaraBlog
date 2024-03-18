@@ -20,3 +20,9 @@ Route::get('/', function () {
 Route::get('about', function () {
     return view('about');
 });
+
+$articles = App\Models\Article::all();
+
+Route::get('/articles', function () use ($articles) {
+    return view('articles', ['articles' => $articles]);
+});
