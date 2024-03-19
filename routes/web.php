@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('about', function () {
-    return view('about');
+    return view('about', [PageController::class, 'about']);
 });
 
 $articles = App\Models\Article::all();
