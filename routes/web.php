@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\RatingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +19,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('about', function () {
-    return view('about', [PageController::class, 'about']);
-});
+Route::get('about', [PageController::class, 'about']);
 
-$articles = App\Models\Article::all();
-
-Route::get('/articles', function () use ($articles) {
+Route::get('/articles', function () {
+    $articles = App\Models\Article::all();
     return view('articles', ['articles' => $articles]);
 });
+
+Route::get('/rating', [RatingController::class, 'index']);

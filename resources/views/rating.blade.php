@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Статьи')
+@section('title', 'Рейтинг статей')
 
 @section('content')
 <ul> 
