@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,13 +18,13 @@ use App\Http\Controllers\RatingController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('about', [PageController::class, 'about']);
 
-Route::get('/articles', function () {
-    $articles = App\Models\Article::all();
-    return view('articles', ['articles' => $articles]);
-});
+Route::get('/rating', [RatingController::class, 'index'])
+    ->name('rating');
 
-Route::get('/rating', [RatingController::class, 'index']);
+
+Route::get('articles', [ArticleController::class, 'index'])
+    ->name('articles.index');
