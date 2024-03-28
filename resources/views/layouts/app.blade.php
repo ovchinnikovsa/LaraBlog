@@ -17,10 +17,14 @@
             <li><a href="{{ route('home') }}">Home</a></li>
             <li><a href="{{ route('rating') }}">Rating</a></li>
             <li><a href="{{ route('articles.index') }}">Articles</a></li>
+            <li><a href="{{ route('articles.create') }}">Create article</a></li>
         </ul>
     </div>
     <div class="container mt-4">
         <h1>@yield('header')</h1>
+        @if (Session::has('message'))
+            <p>{{ Session::get('message') }}</p>
+        @endif
         <div>
             @yield('content')
         </div>
