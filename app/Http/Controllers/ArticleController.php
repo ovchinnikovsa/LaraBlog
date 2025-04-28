@@ -50,6 +50,9 @@ class ArticleController extends Controller
         $article = Article::findOrFail($id);
         $article->fill($request->validated());
         $article->save();
+
+        $request->session()->flash('message', 'Article was updated successfully!');
+
         return redirect()
             ->route('articles.index');
     }
