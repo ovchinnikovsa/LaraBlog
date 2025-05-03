@@ -8,6 +8,9 @@ use App\Models\Article;
 
 class ArticleController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
         $articles = Article::simplePaginate(2);
@@ -15,54 +18,67 @@ class ArticleController extends Controller
         return view('article.index', compact('articles'));
     }
 
-    public function show($id)
-    {
-        $article = Article::findOrFail($id);
-        return view('article.show', compact('article'));
-    }
-
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
         $article = new Article();
         return view('article.create', compact('article'));
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(StoreArticleRequest $request)
     {
         $article = new Article();
         $article->fill($request->validated());
         $article->save();
 
-        $request->session()->flash('message', 'Article was created successfully!');
-
         return redirect()
-            ->route('articles.index');
+            ->route('articles.index')->with('message', 'Статья создана успешно');
     }
 
-    public function edit($id)
+    /**
+     * Display the specified resource.
+     */
+    public function show(Article $article)
     {
-        $article = Article::findOrFail($id);
+        $article = Article::findOrFail($article->id);
+
+        return view('article.show', compact('article'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Article $article)
+    {
+        $article = Article::findOrFail($article->id);
         return view('article.edit', compact('article'));
     }
 
-    public function update(UpdateArticleRequest $request, $id)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateArticleRequest $request, Article $article)
     {
-        $article = Article::findOrFail($id);
+        $article = Article::findOrFail($article->id);
         $article->fill($request->validated());
         $article->save();
 
-        $request->session()->flash('message', 'Article was updated successfully!');
-
         return redirect()
-            ->route('articles.index');
+            ->route('articles.index')->with('message', 'Статья обновлена');
     }
 
-    public function destroy( $id)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Article $article)
     {
-        $article = Article::find($id);
-        if ($article) {
-            $article->delete();
-        }
+        $article = Article::findOrFail($article->id);
+        $article->delete();
 
         return redirect()->route('articles.index')
             ->with('message', 'Статья удалена');
